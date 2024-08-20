@@ -15,7 +15,7 @@ export default function PostDetailView() {
 
     return (
         <View>
-            <PostCard post={post}></PostCard>
+            <PostCard post={post} disableTapOnPost={true}></PostCard>
             <Text>Comments</Text>
             <FlatList
                 data={commentsList}

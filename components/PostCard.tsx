@@ -1,16 +1,18 @@
 import { Comments } from '@/types/comments';
 import { Post } from '@/types/post';
+import { useRoute } from '@react-navigation/native';
 import { router } from 'expo-router';
 import { View, Text, StyleSheet, Button, TouchableWithoutFeedback } from 'react-native';
 
 interface PostCardProps {
     post: Post;
+    disableTapOnPost: boolean;
 }
 
-export function PostCard({ post }: PostCardProps) {
+export function PostCard({ post, disableTapOnPost }: PostCardProps) {
     return (
         <View style={styles.container}>
-            <TouchableWithoutFeedback onPress={() => postPress(post)}>
+            <TouchableWithoutFeedback onPress={disableTapOnPost ? () => { } : () => postPress(post)}>
                 <View>
                     <Text>{post.title}</Text>
                     <Text>{post.patient_description}</Text>
