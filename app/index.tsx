@@ -1,14 +1,18 @@
 import { FlatList, View } from "react-native";
-import axios from 'axios';
-import { useState } from "react";
+import { useEffect } from "react";
 import { PostCard } from "@/components/PostCard";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchPosts } from "@/store/postsSlice";
 
 export default function Index() {
-  const [data, setData] = useState([]);
+  const dispatch = useDispatch();
+  const { posts, status, error } = useSelector((state) => state.posts);
 
-  axios.get("http://localhost:3000/posts").then(response => {
-    setData(response.data)
-  });
+  useEffect(() => {
+    if (status === 'idle') {
+      dispatch(fetchPosts());
+    }
+  }, [status, dispatch]);
 
   return (
     <View
@@ -19,7 +23,7 @@ export default function Index() {
       }}
     >
       <FlatList
-        data={data}
+        data={posts}
         renderItem={({ item }) => <PostCard post={item} />}
       />
     </View>

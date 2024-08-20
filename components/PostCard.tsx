@@ -1,6 +1,7 @@
 import { Comments } from '@/types/comments';
 import { Post } from '@/types/post';
-import { View, Text, StyleSheet, Button } from 'react-native';
+import { router } from 'expo-router';
+import { View, Text, StyleSheet, Button, TouchableWithoutFeedback } from 'react-native';
 
 interface PostCardProps {
     post: Post;
@@ -9,12 +10,16 @@ interface PostCardProps {
 export function PostCard({ post }: PostCardProps) {
     return (
         <View style={styles.container}>
-            <Text>{post.title}</Text>
-            <Text>{post.patient_description}</Text>
-            <View style={styles.engagementContainer}>
-                <Text>{numHugsText(post.num_hugs)}</Text>
-                <Text>{numCommentsText(post.comments)}</Text>
-            </View>
+            <TouchableWithoutFeedback onPress={() => postPress(post)}>
+                <View>
+                    <Text>{post.title}</Text>
+                    <Text>{post.patient_description}</Text>
+                    <View style={styles.engagementContainer}>
+                        <Text>{numHugsText(post.num_hugs)}</Text>
+                        <Text>{numCommentsText(post.comments)}</Text>
+                    </View>
+                </View>
+            </TouchableWithoutFeedback>
             <View style={styles.engagementContainer}>
                 <Button title='Hug'></Button>
                 <Button title='Comment'></Button>
@@ -45,3 +50,7 @@ const styles = StyleSheet.create({
         justifyContent: "space-between"
     }
 });
+
+function postPress(post: Post): void {
+    router.push({ pathname: "/PostDetailView", params: { post_url: post.post_url } });
+}
