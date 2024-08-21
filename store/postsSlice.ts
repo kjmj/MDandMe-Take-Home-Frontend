@@ -1,34 +1,41 @@
+import { Post } from '@/types/post';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+
+interface PostsState {
+    posts: Post[];
+    loading: boolean;
+    error: string | null;
+}
+
+const initialState: PostsState = {
+    posts: [],
+    loading: false,
+    error: null,
+};
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
     const response = await axios.get('http://localhost:3000/posts');
     return response.data;
 });
 
-const initialState = {
-    posts: [],
-    status: 'idle', // 'idle' | 'loading' | 'succeeded' | 'failed'
-    error: null,
-};
-
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
-    reducers: {
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(fetchPosts.pending, (state) => {
-                state.status = 'loading';
+                state.loading = true;
+                state.error = null;
             })
             .addCase(fetchPosts.fulfilled, (state, action) => {
-                state.status = 'succeeded';
+                state.loading = false;
                 state.posts = action.payload;
             })
             .addCase(fetchPosts.rejected, (state, action) => {
-                state.status = 'failed';
-                state.error = action.error.message;
+                state.loading = false;
+                state.error = action.error.message || 'Something went wrong';
             });
     },
 });

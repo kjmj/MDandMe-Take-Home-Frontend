@@ -1,4 +1,4 @@
-import { Comments } from '@/types/comments';
+import { CommentsMapType } from "@/types/CommentsMapType";
 
 export interface Post {
     post_url: string;
@@ -8,5 +8,5 @@ export interface Post {
     patient_description: string;
     assessment: string;
     question: string;
-    comments: Comments;
+    comments: CommentsMapType;
 }

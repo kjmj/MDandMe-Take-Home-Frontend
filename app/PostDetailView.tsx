@@ -1,26 +1,29 @@
 import { PostCard } from "@/components/PostCard";
-import { CommentCard } from "@/components/CommentCard";
 import { useLocalSearchParams } from "expo-router";
-import { FlatList, Text, View } from "react-native";
+import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
-import { Comment } from "@/types/comment";
+import { RootState } from "@/store";
+import { CommentsMapType } from "@/types/CommentsMapType";
+import { Post } from "@/types/post";
+import { CommentsList } from "@/components/CommentList/CommentList";
 
 
 
 export default function PostDetailView() {
-    const post_url = useLocalSearchParams().post_url;
-    const posts = useSelector((state) => state.posts.posts);
-    const post = posts.find(obj => obj.post_url === post_url);
-    const commentsList = Object.values(post.comments) as Comment[]
+    const post_url = useLocalSearchParams().post_url as string;
+    const posts = useSelector((state: RootState) => state.posts.posts);
+    const post = posts.find((obj: Post) => obj.post_url === post_url);
+    const commentsData: CommentsMapType = post?.comments || {};
+
+    if (!post) {
+        return <Text>Post not found</Text>; // Handle the case where post is not found
+    }
 
     return (
         <View>
-            <PostCard post={post} disableTapOnPost={true}></PostCard>
+            <PostCard post={post} disableTapOnPost={true} />
             <Text>Comments</Text>
-            <FlatList
-                data={commentsList}
-                renderItem={({ item }) => <CommentCard comment={item} />}
-            />
+            <CommentsList commentsData={commentsData} />
         </View>
     );
 }

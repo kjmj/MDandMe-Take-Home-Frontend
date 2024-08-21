@@ -1,4 +1,4 @@
-import store from "@/store/store";
+import store from "@/store/index";
 import { Stack } from "expo-router";
 import { Provider } from 'react-redux';
 

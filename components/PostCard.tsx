@@ -1,4 +1,4 @@
-import { Comments } from '@/types/comments';
+import { CommentsMapType } from '@/types/CommentsMapType';
 import { Post } from '@/types/post';
 import { router } from 'expo-router';
 import { View, Text, StyleSheet, Button, TouchableWithoutFeedback } from 'react-native';
@@ -34,7 +34,7 @@ function numHugsText(numHugs: number): string {
     return `${numHugs} Hug${numHugs === 1 ? "" : "s"}`
 }
 
-function numCommentsText(comments: Comments): string {
+function numCommentsText(comments: CommentsMapType): string {
     const numComments = Object.keys(comments).length
     return `${numComments} Comment${numComments === 1 ? "" : "s"}`
 }
