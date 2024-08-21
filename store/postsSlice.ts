@@ -1,4 +1,4 @@
-import { Post } from '@/types/post';
+import { Post } from '@/types/PostFoo';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 

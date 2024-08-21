@@ -1,5 +1,5 @@
 import { CommentsMapType } from '@/types/CommentsMapType';
-import { Post } from '@/types/post';
+import { Post } from '@/types/PostFoo';
 import { router } from 'expo-router';
 import { View, Text, StyleSheet, Button, TouchableWithoutFeedback } from 'react-native';
 
