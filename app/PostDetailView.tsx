@@ -7,6 +7,7 @@ import { RootState } from "@/store/store";
 import { CommentsMapType } from "@/types/CommentsMapType";
 import { Post } from '@/types/Post';
 import { CommentsList } from "@/components/CommentList/CommentList";
+import EmptyState from '@/components/CommentList/EmptyState';
 
 export default function PostDetailView() {
     const post_url = useLocalSearchParams().post_url as string;
@@ -18,6 +19,8 @@ export default function PostDetailView() {
         return <Text>Post not found</Text>; // Handle the case where the post is not found
     }
 
+    const hasComments = Object.keys(commentsData).length > 0;
+
     return (
         <FlatList
             data={[post]} // Only the post is passed here
@@ -27,7 +30,11 @@ export default function PostDetailView() {
             ListFooterComponent={() => (
                 <>
                     <Text style={styles.commentsTitle}>Comments</Text>
-                    <CommentsList commentsData={commentsData} />
+                    {hasComments ? (
+                        <CommentsList commentsData={commentsData} />
+                    ) : (
+                        <EmptyState />
+                    )}
                 </>
             )}
         />
