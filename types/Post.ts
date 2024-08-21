@@ -1,6 +1,6 @@
 import { CommentsMapType } from "@/types/CommentsMapType";
 
-export interface Post {
+export type Post = {
     post_url: string;
     title: string;
     created_at: string;
