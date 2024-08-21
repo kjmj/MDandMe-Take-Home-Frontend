@@ -1,6 +1,7 @@
 import { Post } from '@/types/Post';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Platform } from 'react-native';
 
 interface PostsState {
     posts: Post[];
@@ -15,7 +16,9 @@ const initialState: PostsState = {
 };
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-    const response = await axios.get('http://localhost:3000/posts');
+    // Android doesn't use localhost properly - this is a workaround
+    const baseUrl = Platform.OS === 'android' ? 'http://10.0.2.2' : 'http://localhost';
+    const response = await axios.get(baseUrl + ":3000/posts");
     return response.data;
 });
 
