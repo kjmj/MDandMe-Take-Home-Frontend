@@ -4,6 +4,9 @@ import { router } from 'expo-router';
 import { View, Text, StyleSheet, Button, TouchableWithoutFeedback } from 'react-native';
 import { ThemedText } from './ThemedText';
 import IconButton from '@/components/IconButton';
+import { updatePostField } from '@/store/postsSlice';
+import { useDispatch } from 'react-redux';
+import { AppDispatch } from '@/store/store';
 
 interface PostCardProps {
     post: Post;
@@ -11,6 +14,12 @@ interface PostCardProps {
 }
 
 export function PostCard({ post, disableTapOnPost }: PostCardProps) {
+    const dispatch: AppDispatch = useDispatch();
+
+    const handleHeartPress = () => {
+        dispatch(updatePostField({ post: post, field: 'num_hugs', value: post.num_hugs + 1 }));
+    };
+
     return (
         <View style={styles.container}>
             <TouchableWithoutFeedback onPress={disableTapOnPost ? () => { } : () => postPress(post)}>
@@ -23,11 +32,9 @@ export function PostCard({ post, disableTapOnPost }: PostCardProps) {
                 <IconButton
                     iconName="heart"
                     count={post.num_hugs}
-                    onPress={() => console.log('Heart button pressed')}
+                    onPress={handleHeartPress}
+                    noStateChange={true}
                     animate={true}
-                    initialFill={false}
-                    filledColor="red"
-                    iconColor="black"
                     showCount={true}
                 />
 
@@ -36,7 +43,6 @@ export function PostCard({ post, disableTapOnPost }: PostCardProps) {
                     count={numComments(post.comments)}
                     onPress={() => console.log('Comment pressed')}
                     noStateChange={true}
-                    iconColor="black"
                     showCount={true}
                 />
 
@@ -44,9 +50,7 @@ export function PostCard({ post, disableTapOnPost }: PostCardProps) {
                     iconName="bookmark"
                     onPress={() => console.log('Bookmark button pressed')}
                     animate={true}
-                    initialFill={false}
                     filledColor="blue"
-                    iconColor="black"
                     showCount={false}
                 />
 
