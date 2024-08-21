@@ -4,7 +4,7 @@ import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
 import { RootState } from "@/store";
 import { CommentsMapType } from "@/types/CommentsMapType";
-import { Post } from "@/types/PostFoo";
+import { Post } from '@/types/Post';
 import { CommentsList } from "@/components/CommentList/CommentList";
 
 

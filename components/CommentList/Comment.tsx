@@ -6,7 +6,6 @@ interface CommentProps {
     comment: CommentType;
 }
 
-
 export function Comment({ comment }: CommentProps) {
     return (
         <View style={styles.commentContainer}>
