@@ -27,8 +27,6 @@ export function Comment({ comment }: CommentProps) {
 const styles = StyleSheet.create({
     commentContainer: {
         padding: 10,
-        borderBottomWidth: 1,
-        borderBottomColor: '#ccc',
         marginLeft: 10,
     },
     commentAuthor: {

@@ -42,5 +42,3 @@ const parseComments = (comments: CommentsMapType): ParsedCommentsType => {
 
     return commentTree;
 };
-
-

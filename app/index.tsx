@@ -21,11 +21,7 @@ export default function Index() {
 
   return (
     <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
+      style={styles.container}
     >
       <FlatList
         data={posts}
@@ -37,22 +33,7 @@ export default function Index() {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 16,
-  },
-  card: {
-    marginBottom: 16,
-    padding: 16,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 8,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 8,
-  },
-  description: {
-    fontSize: 16,
+    backgroundColor: "#fbfbfdcc",
   },
   loading: {
     flex: 1,
