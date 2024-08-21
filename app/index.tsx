@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { PostCard } from "@/components/PostCard";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchPosts } from "@/store/postsSlice";
-import { AppDispatch, RootState } from "@/store";
+import { AppDispatch, RootState } from "@/store/store";
 
 export default function Index() {
   const dispatch: AppDispatch = useDispatch();

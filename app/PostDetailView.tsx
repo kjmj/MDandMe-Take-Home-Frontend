@@ -2,7 +2,7 @@ import { PostCard } from "@/components/PostCard";
 import { useLocalSearchParams } from "expo-router";
 import { Text, View } from "react-native";
 import { useSelector } from "react-redux";
-import { RootState } from "@/store";
+import { RootState } from "@/store/store";
 import { CommentsMapType } from "@/types/CommentsMapType";
 import { Post } from '@/types/Post';
 import { CommentsList } from "@/components/CommentList/CommentList";
