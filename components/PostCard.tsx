@@ -1,6 +1,5 @@
 import { Comments } from '@/types/comments';
 import { Post } from '@/types/post';
-import { useRoute } from '@react-navigation/native';
 import { router } from 'expo-router';
 import { View, Text, StyleSheet, Button, TouchableWithoutFeedback } from 'react-native';
 
