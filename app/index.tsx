@@ -30,17 +30,20 @@ export default function Index() {
     }
   }
 
-  if (loading && currentPage === 1)
+  if (loading && currentPage === 1) {
     return (
       <ActivityIndicator size="large" color="gray" style={styles.loading} />
     );
-  if (error)
+  }
+
+  if (error) {
     return (
       <View>
         <Text style={styles.error}>Error: {error}</Text>
         <Text style={styles.error}>Make sure the backend is running!</Text>
       </View>
     );
+  }
 
   return (
     <View style={styles.container}>

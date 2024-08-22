@@ -15,7 +15,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "@/store/store";
 import { CommentsMapType } from "@/types/CommentsMapType";
 import { Post } from "@/types/Post";
-import { CommentsList } from "@/components/CommentList/CommentList";
+import { CommentList } from "@/components/CommentList/CommentList";
 import { EmptyState } from "@/components/CommentList/EmptyState";
 import { addComment } from "@/store/postsSlice";
 
@@ -79,7 +79,7 @@ export default function PostDetailView() {
           <View>
             <Text style={styles.commentsTitle}>Comments</Text>
             {hasComments ? (
-              <CommentsList commentsData={commentsData} />
+              <CommentList commentsData={commentsData} />
             ) : (
               <EmptyState />
             )}

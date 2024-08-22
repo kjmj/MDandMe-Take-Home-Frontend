@@ -5,11 +5,11 @@ import { CommentType } from "@/components/CommentList/types/CommentType";
 import { Comment } from "@/components/CommentList/Comment";
 import { ParsedCommentsType } from "@/components/CommentList/types/ParsedCommentsType";
 
-interface CommentsListProps {
+interface CommentListProps {
   commentsData: CommentsMapType;
 }
 
-export function CommentsList({ commentsData }: CommentsListProps) {
+export function CommentList({ commentsData }: CommentListProps) {
   const commentsTree = parseComments(commentsData);
 
   // Convert the tree to an array and sort it
