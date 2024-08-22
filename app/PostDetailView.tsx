@@ -23,10 +23,10 @@ export default function PostDetailView() {
 
     return (
         <FlatList
+            style={styles.zzz}
             data={[post]} // Only the post is passed here
             renderItem={({ item }) => <PostCard post={item} disableTapOnPost={true} showAll={true} />}
             keyExtractor={(item) => item.post_url}
-            contentContainerStyle={styles.container}
             ListFooterComponent={() => (
                 <>
                     <Text style={styles.commentsTitle}>Comments</Text>
@@ -42,12 +42,12 @@ export default function PostDetailView() {
 }
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 6,
-    },
     commentsTitle: {
         fontSize: 18,
         fontWeight: 'bold',
-        marginVertical: 10,
+        margin: 10
     },
+    zzz: {
+        backgroundColor: "#fafafe",
+    }
 });
