@@ -8,7 +8,7 @@ Before you start, ensure you have the following installed:
 
 - [Node.js](https://nodejs.org/)
 - [Expo CLI](https://docs.expo.dev/get-started/installation/) (`npm install -g expo-cli`)
-- [The corresponding backend repo](https://github.com/kjmj/MDandMe-Take-Home-Backend) - without this, the frontend won't do much
+- [MDandMe-Take-Home-Backend](https://github.com/kjmj/MDandMe-Take-Home-Backend)
 
 ## Get started
 
