@@ -2,41 +2,49 @@ import { Post } from '@/types/Post';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Platform } from 'react-native';
+import { RootState } from '@/store/store'; // Import RootState
 
 function API_URL(): string {
     return (Platform.OS === 'android' ? 'http://10.0.2.2' : 'http://localhost') + ":3000/posts";
 }
 
+const PAGE_SIZE = 5; // Number of posts to load per page
+
 interface PostsState {
     posts: Post[];
     loading: boolean;
     error: string | null;
+    currentPage: number;
 }
 
 const initialState: PostsState = {
     posts: [],
     loading: false,
     error: null,
+    currentPage: 1,
 };
 
-export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-    console.log(API_URL())
-    const response = await axios.get(API_URL());
+export const fetchPosts = createAsyncThunk('posts/fetchPosts', async (page: number) => {
+    const response = await axios.get(`${API_URL()}?_page=${page}&_limit=${PAGE_SIZE}`);
     return response.data;
 });
 
-// Thunk for updating a single field in a post
+export const fetchMorePosts = createAsyncThunk('posts/fetchMorePosts', async (page: number, { getState, dispatch }) => {
+    const { posts: { loading } } = getState() as RootState;
+    if (loading) return;
+
+    dispatch(fetchPosts(page));
+});
+
 export const updatePostField = createAsyncThunk(
     'posts/updatePostField',
     async ({ post, field, value }: { post: Post; field: keyof Post; value: any }, { rejectWithValue }) => {
         try {
-            // Update the specific field
             const updatedPost = {
                 ...post,
                 [field]: value,
             };
 
-            // Send the updated post to the server
             const response = await axios.put<Post>(`${API_URL()}/${post.post_url}`, updatedPost);
             return response.data;
         } catch (error) {
@@ -57,7 +65,12 @@ const postsSlice = createSlice({
             })
             .addCase(fetchPosts.fulfilled, (state, action) => {
                 state.loading = false;
-                state.posts = action.payload;
+                if (state.currentPage === 1) {
+                    state.posts = action.payload;
+                } else {
+                    state.posts = [...state.posts, ...action.payload];
+                }
+                state.currentPage++;
             })
             .addCase(fetchPosts.rejected, (state, action) => {
                 state.loading = false;

@@ -2,7 +2,7 @@ import { ActivityIndicator, FlatList, View, Text, StyleSheet } from "react-nativ
 import { useEffect } from "react";
 import { PostCard } from "@/components/PostCard";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchPosts } from "@/store/postsSlice";
+import { fetchPosts, fetchMorePosts } from "@/store/postsSlice";
 import { AppDispatch, RootState } from "@/store/store";
 
 export default function Index() {
@@ -10,24 +10,33 @@ export default function Index() {
   const posts = useSelector((state: RootState) => state.posts.posts);
   const loading = useSelector((state: RootState) => state.posts.loading);
   const error = useSelector((state: RootState) => state.posts.error);
+  const currentPage = useSelector((state: RootState) => state.posts.currentPage);
 
   useEffect(() => {
-    dispatch(fetchPosts());
+    dispatch(fetchPosts(1)); // Fetch the first page initially
   }, [dispatch]);
 
-  if (loading) return <ActivityIndicator size="large" color="gray" style={styles.loading} />;
+  const handleEndReached = () => {
+    if (!loading) {
+      dispatch(fetchMorePosts(currentPage + 1));
+    }
+  };
+
+  if (loading && currentPage === 1)
+    return <ActivityIndicator size="large" color="gray" style={styles.loading} />;
   if (error) return <Text style={styles.error}>Error: {error}</Text>;
 
-
   return (
-    <View
-      style={styles.container}
-    >
+    <View style={styles.container}>
       <FlatList
         data={posts}
         keyExtractor={(item) => item.post_url}
-        renderItem={({ item }) => <PostCard post={item} disableTapOnPost={false} showAll={false} />
-        }
+        renderItem={({ item }) => (
+          <PostCard post={item} disableTapOnPost={false} showAll={false} />
+        )}
+        onEndReached={handleEndReached}
+        onEndReachedThreshold={0.5}
+        ListFooterComponent={loading ? <ActivityIndicator size="large" color="gray" /> : null}
       />
     </View>
   );
