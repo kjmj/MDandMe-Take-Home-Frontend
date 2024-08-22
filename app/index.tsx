@@ -26,7 +26,7 @@ export default function Index() {
 
   function handleEndReached(): void {
     if (!loading) {
-      dispatch(fetchMorePosts(currentPage + 1));
+      dispatch(fetchMorePosts(currentPage));
     }
   }
 
