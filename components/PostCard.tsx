@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Image } from 'react-native';
 import { ThemedText } from './ThemedText';
 import IconButton from '@/components/IconButton';
 import { updatePostField } from '@/store/postsSlice';
@@ -8,6 +8,7 @@ import { AppDispatch } from '@/store/store';
 import { CommentsMapType } from '@/types/CommentsMapType';
 import { Post } from '@/types/Post';
 import { router } from 'expo-router';
+import { getTimeAgo } from '@/util/utils';
 
 interface PostCardProps {
     post: Post;
@@ -31,8 +32,18 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
         <View style={styles.container}>
             <TouchableWithoutFeedback onPress={disableTapOnPost ? () => { } : () => postPress(post)}>
                 <View style={styles.bottomBorder}>
-                    <ThemedText type='defaultSemiBold' style={styles.textContainer}>{post.title}</ThemedText>
-                    <Text style={styles.textContainer} numberOfLines={seeMore ? undefined : 3}>
+                    <View style={styles.headerContainer}>
+                        <Image
+                            source={{ uri: 'https://avatar.iran.liara.run/public' }} // Placeholder avatar URL
+                            style={styles.avatar}
+                        />
+                        <View style={styles.textContainer}>
+                            <ThemedText type='defaultSemiBold' >{post.title}</ThemedText>
+                            <Text style={styles.postTime}>{getTimeAgo(new Date(post.created_at))}</Text>
+                        </View>
+                    </View>
+
+                    <Text style={styles.description} numberOfLines={seeMore ? undefined : 3}>
                         {post.patient_description}
                     </Text>
                     {!seeMore && (
@@ -41,7 +52,7 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
                         </TouchableWithoutFeedback>
                     )}
                 </View>
-            </TouchableWithoutFeedback >
+            </TouchableWithoutFeedback>
 
             <View style={styles.engagementContainer}>
                 <IconButton
@@ -69,7 +80,7 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
                     showCount={false}
                 />
             </View>
-        </View >
+        </View>
     );
 }
 
@@ -90,15 +101,32 @@ const styles = StyleSheet.create({
         borderBottomWidth: StyleSheet.hairlineWidth,
         marginBottom: 6,
     },
+    headerContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 6,
+    },
+    avatar: {
+        width: 50,
+        height: 50,
+        borderRadius: 25,
+        marginRight: 10,
+    },
     textContainer: {
+        flex: 1,
+    },
+    postTime: {
+        fontSize: 12,
+        color: 'gray',
+    },
+    description: {
         marginBottom: 12,
     },
     seeMoreText: {
-        flex: 1,
         alignSelf: 'flex-end',
         color: 'gray',
-        marginBottom: 12,
         fontWeight: '700',
+        marginBottom: 12,
     },
     engagementContainer: {
         flexDirection: "row",
