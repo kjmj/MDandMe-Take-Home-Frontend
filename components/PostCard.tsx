@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableWithoutFeedback, Image } from 'react-native';
+import { View, Text, StyleSheet, TouchableWithoutFeedback, Alert } from 'react-native';
 import { ThemedText } from './ThemedText';
 import IconButton from '@/components/IconButton';
 import { updatePostField } from '@/store/postsSlice';
@@ -27,6 +27,14 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
 
     const toggleSeeMore = () => {
         setSeeMore(!seeMore);
+    };
+
+    const handleBookmarkPress = () => {
+        Alert.alert(
+            'Save post',
+            'This feature isn’t available yet; the icon is just for show at the moment.',
+            [{ text: 'OK' }]
+        );
     };
 
     return (
@@ -72,9 +80,9 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
 
                 <IconButton
                     iconName="bookmark"
-                    onPress={() => console.log('Bookmark button pressed')}
+                    onPress={handleBookmarkPress}
                     animate={true}
-                    filledColor="blue"
+                    filledColor="rgb(112, 115, 249)"
                     showCount={false}
                 />
             </View>
