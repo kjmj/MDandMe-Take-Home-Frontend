@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { CommentType } from "@/components/CommentList/types/CommentType";
-import { getTimeAgo } from '@/util/utils';
+import { getTimeAgo } from '@/util/getTimeAgo';
 import { AvatarImage } from '@/components/AvatarImage';
 
 interface CommentProps {
