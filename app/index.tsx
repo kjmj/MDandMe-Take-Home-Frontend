@@ -15,7 +15,7 @@ export default function Index() {
     dispatch(fetchPosts());
   }, [dispatch]);
 
-  if (loading) return <ActivityIndicator size="large" color="#0000ff" style={styles.loading} />;
+  if (loading) return <ActivityIndicator size="large" color="gray" style={styles.loading} />;
   if (error) return <Text style={styles.error}>Error: {error}</Text>;
 
 
