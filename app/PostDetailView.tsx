@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView,
   Platform,
   TouchableOpacity,
+  TouchableOpacityProps,
 } from "react-native";
 import { PostCard } from "@/components/PostCard";
 import { useLocalSearchParams } from "expo-router";
@@ -64,6 +65,8 @@ export default function PostDetailView() {
     }
   }
 
+  const isCommentEmpty = !comment.trim();
+
   return (
     <KeyboardAvoidingView
       style={styles.container}
@@ -100,8 +103,22 @@ export default function PostDetailView() {
           numberOfLines={3}
           scrollEnabled
         />
-        <TouchableOpacity style={styles.sendButton} onPress={handleSendComment}>
-          <Text style={styles.sendButtonText}>Send</Text>
+        <TouchableOpacity
+          style={[
+            styles.sendButton,
+            isCommentEmpty && styles.sendButtonDisabled,
+          ]}
+          onPress={handleSendComment}
+          disabled={isCommentEmpty}
+        >
+          <Text
+            style={[
+              styles.sendButtonText,
+              isCommentEmpty && styles.sendButtonTextDisabled,
+            ]}
+          >
+            Send
+          </Text>
         </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
@@ -112,10 +129,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: "#fafafe",
-  },
-  innerContainer: {
-    flex: 1,
-    justifyContent: "space-between",
   },
   commentsTitle: {
     fontSize: 18,
@@ -152,8 +165,14 @@ const styles = StyleSheet.create({
     height: 40,
     maxHeight: 40,
   },
+  sendButtonDisabled: {
+    backgroundColor: "#e0e0e0",
+  },
   sendButtonText: {
     color: "rgb(255, 150, 7)",
     fontWeight: "bold",
+  },
+  sendButtonTextDisabled: {
+    color: "#a0a0a0",
   },
 });
