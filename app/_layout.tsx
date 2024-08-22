@@ -2,8 +2,8 @@ import React from "react";
 import { SafeAreaView, StyleSheet } from "react-native";
 import { Provider } from "react-redux";
 import { Stack } from "expo-router";
-import store from "@/store/store";
-import CustomHeader from "@/components/CustomHeader";
+import { store } from "@/store/store";
+import { CustomHeader } from "@/components/CustomHeader";
 
 export default function RootLayout() {
   return (

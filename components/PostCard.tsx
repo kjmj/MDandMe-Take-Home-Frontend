@@ -7,7 +7,7 @@ import {
   Alert,
 } from "react-native";
 import { ThemedText } from "./ThemedText";
-import IconButton from "@/components/IconButton";
+import { IconButton } from "@/components/IconButton";
 import { updatePostField } from "@/store/postsSlice";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "@/store/store";

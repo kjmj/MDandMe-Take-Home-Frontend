@@ -8,7 +8,7 @@ interface CustomHeaderProps {
   showBackButton?: boolean;
 }
 
-export default function CustomHeader({
+export function CustomHeader({
   title,
   showBackButton = false,
 }: CustomHeaderProps) {

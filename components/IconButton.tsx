@@ -21,7 +21,7 @@ interface IconButtonProps {
   stayPressed?: boolean; // Whether the button should stay pressed once activated
 }
 
-export default function IconButton({
+export function IconButton({
   iconName,
   count,
   onPress,
