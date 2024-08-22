@@ -13,7 +13,7 @@ export default function RootLayout() {
           <Stack.Screen
             name="index"
             options={{
-              header: () => <CustomHeader title="Home" />,
+              header: () => <CustomHeader title="Community" />,
             }}
           />
           <Stack.Screen
