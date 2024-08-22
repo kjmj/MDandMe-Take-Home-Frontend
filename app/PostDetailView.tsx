@@ -95,6 +95,7 @@ export default function PostDetailView() {
           value={comment}
           onChangeText={setComment}
           onSubmitEditing={handleSendComment}
+          onEndEditing={() => setComment("")} // Clear input on end editing
           multiline
           numberOfLines={3}
           scrollEnabled
