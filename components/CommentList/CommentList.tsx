@@ -12,9 +12,15 @@ interface CommentsListProps {
 export function CommentsList({ commentsData }: CommentsListProps) {
   const commentsTree = parseComments(commentsData);
 
+  // Convert the tree to an array and sort it
+  const sortedComments = Object.values(commentsTree).sort(
+    (a, b) =>
+      new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+  );
+
   return (
     <FlatList
-      data={Object.values(commentsTree)}
+      data={sortedComments}
       renderItem={({ item }) => <Comment comment={item} />}
       keyExtractor={(item) => item.id.toString()}
     />
