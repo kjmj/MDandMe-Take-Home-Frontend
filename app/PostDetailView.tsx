@@ -13,21 +13,26 @@ import {
 } from "react-native";
 import { PostCard } from "@/components/PostCard";
 import { useLocalSearchParams } from "expo-router";
-import { useSelector } from "react-redux";
-import { RootState } from "@/store/store";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "@/store/store";
 import { CommentsMapType } from "@/types/CommentsMapType";
 import { Post } from "@/types/Post";
 import { CommentsList } from "@/components/CommentList/CommentList";
 import EmptyState from "@/components/CommentList/EmptyState";
+import { addComment } from "@/store/postsSlice";
 
 export default function PostDetailView() {
   const post_url = useLocalSearchParams().post_url as string;
+  const openCommentBox = Boolean(
+    useLocalSearchParams().openCommentBox as string,
+  );
   const posts = useSelector((state: RootState) => state.posts.posts);
   const post = posts.find((obj: Post) => obj.post_url === post_url);
   const commentsData: CommentsMapType = post?.comments || {};
 
   const [comment, setComment] = useState("");
   const commentInputRef = useRef<TextInput | null>(null);
+  const dispatch: AppDispatch = useDispatch();
 
   if (!post) {
     return <Text>Post not found</Text>; // Handle the case where the post is not found
@@ -37,10 +42,17 @@ export default function PostDetailView() {
 
   const handleSendComment = () => {
     if (comment.trim()) {
-      // Handle sending the comment
-      console.log("Comment sent:", comment);
+      const newComment = {
+        parent_id: null, // or the relevant parent ID for replies
+        display_name: "Anonymous", // replace with actual user's display name
+        text: comment,
+        created_at: new Date().toISOString(),
+      };
+
+      dispatch(addComment({ postUrl: post.post_url, comment: newComment }));
+
+      // Clear the input field
       setComment("");
-      commentInputRef.current?.blur(); // Dismiss the keyboard
     }
   };
 
