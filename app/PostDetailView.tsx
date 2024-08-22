@@ -43,7 +43,7 @@ export default function PostDetailView() {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        padding: 6,
     },
     commentsTitle: {
         fontSize: 18,

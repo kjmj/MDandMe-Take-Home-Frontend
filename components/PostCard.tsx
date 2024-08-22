@@ -9,6 +9,7 @@ import { CommentsMapType } from '@/types/CommentsMapType';
 import { Post } from '@/types/Post';
 import { router } from 'expo-router';
 import { getTimeAgo } from '@/util/utils';
+import { AvatarImage } from '@/components/AvatarImage';
 
 interface PostCardProps {
     post: Post;
@@ -33,10 +34,7 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
             <TouchableWithoutFeedback onPress={disableTapOnPost ? () => { } : () => postPress(post)}>
                 <View style={styles.bottomBorder}>
                     <View style={styles.headerContainer}>
-                        <Image
-                            source={{ uri: 'https://avatar.iran.liara.run/public' }} // Placeholder avatar URL
-                            style={styles.avatar}
-                        />
+                        <AvatarImage />
                         <View style={styles.textContainer}>
                             <ThemedText type='defaultSemiBold' >{post.title}</ThemedText>
                             <Text style={styles.postTime}>{getTimeAgo(new Date(post.created_at))}</Text>
