@@ -2,6 +2,7 @@ import React from 'react';
 import { View, Text, StyleSheet, Image } from 'react-native';
 import { CommentType } from "@/components/CommentList/types/CommentType";
 import { getTimeAgo } from '@/util/utils';
+import { AvatarImage } from '@/components/AvatarImage';
 
 interface CommentProps {
     comment: CommentType;
@@ -11,10 +12,7 @@ export function Comment({ comment }: CommentProps) {
     return (
         <View style={styles.commentContainer}>
             <View style={styles.headerContainer}>
-                <Image
-                    source={{ uri: 'https://avatar.iran.liara.run/public' }} // Placeholder avatar URL
-                    style={styles.avatar}
-                />
+                <AvatarImage size={40} />
                 <View style={styles.textContainer}>
                     <Text style={styles.commentAuthor}>{comment.display_name}</Text>
                     <Text style={styles.commentDate}>{getTimeAgo(new Date(comment.created_at))}</Text>
