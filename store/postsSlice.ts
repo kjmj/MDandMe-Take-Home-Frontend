@@ -2,7 +2,7 @@ import { Post } from '@/types/Post';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import { Platform } from 'react-native';
-import { RootState } from '@/store/store'; // Import RootState
+import { RootState } from '@/store/store';
 
 function API_URL(): string {
     return (Platform.OS === 'android' ? 'http://10.0.2.2' : 'http://localhost') + ":3000/posts";
@@ -68,7 +68,10 @@ const postsSlice = createSlice({
                 if (state.currentPage === 1) {
                     state.posts = action.payload;
                 } else {
-                    state.posts = [...state.posts, ...action.payload];
+                    const newPosts = action.payload.filter((newPost: { post_url: string; }) =>
+                        !state.posts.some(existingPost => existingPost.post_url === newPost.post_url)
+                    );
+                    state.posts = [...state.posts, ...newPosts];
                 }
                 state.currentPage++;
             })
@@ -78,9 +81,10 @@ const postsSlice = createSlice({
             })
             .addCase(updatePostField.fulfilled, (state, action) => {
                 const updatedPost = action.payload;
-                state.posts = state.posts.map(post =>
-                    post.post_url === updatedPost.post_url ? updatedPost : post
-                );
+                const postIndex = state.posts.findIndex(post => post.post_url === updatedPost.post_url);
+                if (postIndex !== -1) {
+                    state.posts[postIndex] = updatedPost;
+                }
             })
             .addCase(updatePostField.rejected, (state, action) => {
                 state.error = action.payload as string;
