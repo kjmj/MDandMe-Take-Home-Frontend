@@ -26,7 +26,7 @@ export default function Index() {
       <FlatList
         data={posts}
         keyExtractor={(item) => item.post_url}
-        renderItem={({ item }) => <PostCard post={item} disableTapOnPost={false} />
+        renderItem={({ item }) => <PostCard post={item} disableTapOnPost={false} showAll={false} />
         }
       />
     </View>

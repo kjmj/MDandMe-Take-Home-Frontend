@@ -12,12 +12,12 @@ import { router } from 'expo-router';
 interface PostCardProps {
     post: Post;
     disableTapOnPost: boolean;
-    showMore: boolean;
+    showAll: boolean;
 }
 
-export function PostCard({ post, disableTapOnPost, showMore }: PostCardProps) {
+export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
     const dispatch: AppDispatch = useDispatch();
-    const [seeMore, setSeeMore] = useState(showMore);
+    const [seeMore, setSeeMore] = useState(showAll);
 
     const handleHeartPress = () => {
         dispatch(updatePostField({ post: post, field: 'num_hugs', value: post.num_hugs + 1 }));

@@ -24,7 +24,7 @@ export default function PostDetailView() {
     return (
         <FlatList
             data={[post]} // Only the post is passed here
-            renderItem={({ item }) => <PostCard post={item} disableTapOnPost={true} showMore={true} />}
+            renderItem={({ item }) => <PostCard post={item} disableTapOnPost={true} showAll={true} />}
             keyExtractor={(item) => item.post_url}
             contentContainerStyle={styles.container}
             ListFooterComponent={() => (
