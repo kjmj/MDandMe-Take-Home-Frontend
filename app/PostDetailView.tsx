@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   FlatList,
   Text,
@@ -23,9 +23,10 @@ import { addComment } from "@/store/postsSlice";
 
 export default function PostDetailView() {
   const post_url = useLocalSearchParams().post_url as string;
-  const openCommentBox = Boolean(
-    useLocalSearchParams().openCommentBox as string,
+  const shouldFocusCommentsTextArea = Boolean(
+    useLocalSearchParams().should_focus_comments_text_area as string,
   );
+
   const posts = useSelector((state: RootState) => state.posts.posts);
   const post = posts.find((obj: Post) => obj.post_url === post_url);
   const commentsData: CommentsMapType = post?.comments || {};
@@ -37,6 +38,12 @@ export default function PostDetailView() {
   if (!post) {
     return <Text>Post not found</Text>; // Handle the case where the post is not found
   }
+
+  useEffect(() => {
+    if (shouldFocusCommentsTextArea && commentInputRef.current) {
+      commentInputRef.current.focus();
+    }
+  }, [shouldFocusCommentsTextArea]);
 
   const hasComments = Object.keys(commentsData).length > 0;
 

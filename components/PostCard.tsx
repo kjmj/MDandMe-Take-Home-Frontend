@@ -49,6 +49,16 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
     );
   };
 
+  const handleCommentsPress = () => {
+    router.push({
+      pathname: "/PostDetailView",
+      params: {
+        post_url: post.post_url,
+        should_focus_comments_text_area: "true",
+      },
+    });
+  };
+
   return (
     <View style={styles.container}>
       <TouchableWithoutFeedback
@@ -92,7 +102,7 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
         <IconButton
           iconName="comment"
           count={numComments(post.comments)}
-          onPress={() => console.log("Comment pressed")}
+          onPress={disableTapOnPost ? () => {} : () => handleCommentsPress()}
           noStateChange={true}
           showCount={true}
         />
