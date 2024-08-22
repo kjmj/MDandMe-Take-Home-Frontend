@@ -60,6 +60,7 @@ export default function PostDetailView() {
 
       // Clear the input field
       setComment("");
+      commentInputRef.current?.blur();
     }
   }
 
