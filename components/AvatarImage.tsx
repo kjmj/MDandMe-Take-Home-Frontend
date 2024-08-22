@@ -37,7 +37,7 @@ export function AvatarImage({ size = 50 }: AvatarImageProps) {
     // Interpolating the opacity of the pulse
     const pulseInterpolation = pulseAnim.interpolate({
         inputRange: [0, 1],
-        outputRange: ['0.5', '0.2'],
+        outputRange: [0.8, 0.2],
     });
 
     return (
