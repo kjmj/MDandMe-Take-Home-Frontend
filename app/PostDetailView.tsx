@@ -69,43 +69,35 @@ export default function PostDetailView() {
       behavior={Platform.OS === "ios" ? "padding" : "height"}
       keyboardVerticalOffset={Platform.OS === "ios" ? 120 : 70}
     >
-      <View style={styles.innerContainer}>
-        <FlatList
-          data={[post]} // Only the post is passed here
-          renderItem={({ item }) => (
-            <PostCard post={item} disableTapOnPost={true} showAll={true} />
-          )}
-          keyExtractor={(item) => item.post_url}
-          ListFooterComponent={() => (
-            <>
-              <Text style={styles.commentsTitle}>Comments</Text>
-              {hasComments ? (
-                <CommentsList commentsData={commentsData} />
-              ) : (
-                <EmptyState />
-              )}
-            </>
-          )}
+      <FlatList
+        data={[post]}
+        renderItem={({ item }) => (
+          <PostCard post={item} disableTapOnPost={true} showAll={true} />
+        )}
+        keyExtractor={(item) => item.post_url}
+        ListFooterComponent={
+          hasComments ? (
+            <CommentsList commentsData={commentsData} />
+          ) : (
+            <EmptyState />
+          )
+        }
+      />
+      <View style={styles.commentBoxContainer}>
+        <TextInput
+          ref={commentInputRef}
+          style={styles.commentBox}
+          placeholder="Leave a comment here"
+          value={comment}
+          onChangeText={setComment}
+          onSubmitEditing={handleSendComment}
+          multiline
+          numberOfLines={3}
+          scrollEnabled
         />
-        <View style={styles.commentBoxContainer}>
-          <TextInput
-            ref={commentInputRef}
-            style={styles.commentBox}
-            placeholder="Leave a comment here"
-            value={comment}
-            onChangeText={setComment}
-            onSubmitEditing={handleSendComment}
-            multiline
-            numberOfLines={3} // Show up to 3 lines of text
-            scrollEnabled
-          />
-          <TouchableOpacity
-            style={styles.sendButton}
-            onPress={handleSendComment}
-          >
-            <Text style={styles.sendButtonText}>Send</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity style={styles.sendButton} onPress={handleSendComment}>
+          <Text style={styles.sendButtonText}>Send</Text>
+        </TouchableOpacity>
       </View>
     </KeyboardAvoidingView>
   );
