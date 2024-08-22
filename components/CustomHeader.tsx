@@ -2,7 +2,7 @@
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native"; // Import useNavigation
-import { FontAwesome } from "@expo/vector-icons";
+import { FontAwesome6 } from "@expo/vector-icons";
 
 interface CustomHeaderProps {
   title?: string;
@@ -19,7 +19,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
     <View style={styles.headerContainer}>
       {showBackButton && (
         <TouchableOpacity onPress={() => navigation.goBack()}>
-          <FontAwesome name="arrow-left" size={24} color="gray" />
+          <FontAwesome6 name="arrow-left" size={24} color="gray" />
         </TouchableOpacity>
       )}
       <Text style={styles.headerTitle}>{title}</Text>
