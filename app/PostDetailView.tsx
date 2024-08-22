@@ -124,6 +124,7 @@ const styles = StyleSheet.create({
     borderTopColor: "#e0e0e0",
     padding: 10,
     backgroundColor: "white",
+    alignItems: "center",
   },
   commentBox: {
     flex: 1,
@@ -143,6 +144,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(255, 150, 7, 0.1)",
     borderRadius: 8,
     marginLeft: 10,
+    height: 40,
+    maxHeight: 40,
   },
   sendButtonText: {
     color: "rgb(255, 150, 7)",
