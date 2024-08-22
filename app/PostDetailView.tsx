@@ -76,11 +76,14 @@ export default function PostDetailView() {
         )}
         keyExtractor={(item) => item.post_url}
         ListFooterComponent={
-          hasComments ? (
-            <CommentsList commentsData={commentsData} />
-          ) : (
-            <EmptyState />
-          )
+          <View>
+            <Text style={styles.commentsTitle}>Comments</Text>
+            {hasComments ? (
+              <CommentsList commentsData={commentsData} />
+            ) : (
+              <EmptyState />
+            )}
+          </View>
         }
       />
       <View style={styles.commentBoxContainer}>
@@ -115,7 +118,8 @@ const styles = StyleSheet.create({
   commentsTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    margin: 10,
+    marginHorizontal: 10,
+    marginBottom: 10,
   },
   commentBoxContainer: {
     flexDirection: "row",
