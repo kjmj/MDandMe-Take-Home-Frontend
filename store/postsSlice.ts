@@ -1,7 +1,11 @@
-import { API_URL } from '@/api/routes';
 import { Post } from '@/types/Post';
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { Platform } from 'react-native';
+
+function API_URL(): string {
+    return (Platform.OS === 'android' ? 'http://10.0.2.2' : 'http://localhost') + ":3000/posts";
+}
 
 interface PostsState {
     posts: Post[];
@@ -16,7 +20,8 @@ const initialState: PostsState = {
 };
 
 export const fetchPosts = createAsyncThunk('posts/fetchPosts', async () => {
-    const response = await axios.get(API_URL);
+    console.log(API_URL())
+    const response = await axios.get(API_URL());
     return response.data;
 });
 
@@ -32,7 +37,7 @@ export const updatePostField = createAsyncThunk(
             };
 
             // Send the updated post to the server
-            const response = await axios.put<Post>(`${API_URL}/${post.post_url}`, updatedPost);
+            const response = await axios.put<Post>(`${API_URL()}/${post.post_url}`, updatedPost);
             return response.data;
         } catch (error) {
             return rejectWithValue('Failed to update post');
