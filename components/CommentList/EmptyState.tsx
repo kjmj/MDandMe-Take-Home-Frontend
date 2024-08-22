@@ -1,7 +1,7 @@
 import React from "react";
 import { View, Text, StyleSheet, Image } from "react-native";
 
-const EmptyState: React.FC = () => {
+export default function EmptyState() {
   return (
     <View style={styles.container}>
       <Image
@@ -13,7 +13,7 @@ const EmptyState: React.FC = () => {
       </Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -34,5 +34,3 @@ const styles = StyleSheet.create({
     textAlign: "center", // Center-align text
   },
 });
-
-export default EmptyState;

@@ -1,4 +1,3 @@
-// CustomHeader.tsx
 import React from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native"; // Import useNavigation
@@ -9,10 +8,10 @@ interface CustomHeaderProps {
   showBackButton?: boolean;
 }
 
-const CustomHeader: React.FC<CustomHeaderProps> = ({
+export default function CustomHeader({
   title,
   showBackButton = false,
-}) => {
+}: CustomHeaderProps) {
   const navigation = useNavigation();
 
   return (
@@ -25,7 +24,7 @@ const CustomHeader: React.FC<CustomHeaderProps> = ({
       <Text style={styles.headerTitle}>{title}</Text>
     </View>
   );
-};
+}
 
 const styles = StyleSheet.create({
   headerContainer: {
@@ -40,5 +39,3 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
 });
-
-export default CustomHeader;

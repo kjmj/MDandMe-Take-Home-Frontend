@@ -21,7 +21,7 @@ interface IconButtonProps {
   stayPressed?: boolean; // Whether the button should stay pressed once activated
 }
 
-const IconButton: React.FC<IconButtonProps> = ({
+export default function IconButton({
   iconName,
   count,
   onPress,
@@ -30,11 +30,11 @@ const IconButton: React.FC<IconButtonProps> = ({
   showCount = true,
   noStateChange = false, // Default to false
   stayPressed = false, // Default to false
-}) => {
+}: IconButtonProps) {
   const [pressed, setPressed] = useState(false);
   const scaleAnim = React.useRef(new Animated.Value(1)).current; // Ref to persist animation value
 
-  const handlePress = () => {
+  function handlePress() {
     if (!noStateChange) {
       setPressed(!pressed);
     }
@@ -53,7 +53,7 @@ const IconButton: React.FC<IconButtonProps> = ({
       ]).start();
     }
     onPress();
-  };
+  }
 
   // Apply animation to transform style
   const transformStyle = {
@@ -83,7 +83,7 @@ const IconButton: React.FC<IconButtonProps> = ({
       )}
     </TouchableOpacity>
   );
-};
+}
 
 const styles = StyleSheet.create({
   button: {
@@ -98,5 +98,3 @@ const styles = StyleSheet.create({
     fontSize: 14,
   },
 });
-
-export default IconButton;

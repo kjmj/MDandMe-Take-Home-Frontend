@@ -2,15 +2,8 @@ import { Post } from "@/types/Post";
 import { Comment } from "@/types/Comment";
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
-import { Platform } from "react-native";
 import { RootState } from "@/store/store";
-
-function API_URL(): string {
-  return (
-    (Platform.OS === "android" ? "http://10.0.2.2" : "http://localhost") +
-    ":3000/posts"
-  );
-}
+import { API_URL } from "@/store/storeUtils";
 
 const PAGE_SIZE = 5; // Number of posts to load per page
 
@@ -67,8 +60,7 @@ export const updatePostField = createAsyncThunk(
         updatedPost,
       );
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch {
       return rejectWithValue("Failed to update post");
     }
   },
@@ -107,8 +99,7 @@ export const addComment = createAsyncThunk(
       );
 
       return response.data;
-    } catch (error) {
-      console.log(error);
+    } catch {
       return rejectWithValue("Failed to add comment");
     }
   },

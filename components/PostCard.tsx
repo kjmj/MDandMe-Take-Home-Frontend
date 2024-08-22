@@ -27,7 +27,7 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
   const dispatch: AppDispatch = useDispatch();
   const [seeMore, setSeeMore] = useState(showAll);
 
-  const handleHeartPress = () => {
+  function handleHeartPress(): void {
     dispatch(
       updatePostField({
         post: post,
@@ -35,21 +35,21 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
         value: post.num_hugs + 1,
       }),
     );
-  };
+  }
 
-  const toggleSeeMore = () => {
+  function toggleSeeMore(): void {
     setSeeMore(!seeMore);
-  };
+  }
 
-  const handleBookmarkPress = () => {
+  function handleBookmarkPress(): void {
     Alert.alert(
       "Save post",
       "This feature isn’t available yet; the icon is just for show at the moment.",
       [{ text: "OK" }],
     );
-  };
+  }
 
-  const handleCommentsPress = () => {
+  function handleCommentsPress(): void {
     router.push({
       pathname: "/PostDetailView",
       params: {
@@ -57,7 +57,7 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
         should_focus_comments_text_area: "true",
       },
     });
-  };
+  }
 
   return (
     <View style={styles.container}>

@@ -24,11 +24,11 @@ export default function Index() {
     dispatch(fetchPosts(1)); // Fetch the first page initially
   }, [dispatch]);
 
-  const handleEndReached = () => {
+  function handleEndReached(): void {
     if (!loading) {
       dispatch(fetchMorePosts(currentPage + 1));
     }
-  };
+  }
 
   if (loading && currentPage === 1)
     return (

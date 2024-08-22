@@ -7,8 +7,6 @@ import {
   TextInput,
   KeyboardAvoidingView,
   Platform,
-  TouchableWithoutFeedback,
-  Keyboard,
   TouchableOpacity,
 } from "react-native";
 import { PostCard } from "@/components/PostCard";
@@ -35,19 +33,19 @@ export default function PostDetailView() {
   const commentInputRef = useRef<TextInput | null>(null);
   const dispatch: AppDispatch = useDispatch();
 
-  if (!post) {
-    return <Text>Post not found</Text>; // Handle the case where the post is not found
-  }
-
   useEffect(() => {
     if (shouldFocusCommentsTextArea && commentInputRef.current) {
       commentInputRef.current.focus();
     }
   }, [shouldFocusCommentsTextArea]);
 
+  if (!post) {
+    return <Text>Post not found</Text>; // Handle the case where the post is not found
+  }
+
   const hasComments = Object.keys(commentsData).length > 0;
 
-  const handleSendComment = () => {
+  function handleSendComment() {
     if (comment.trim()) {
       const newComment = {
         parent_id: null, // or the relevant parent ID for replies
@@ -56,12 +54,14 @@ export default function PostDetailView() {
         created_at: new Date().toISOString(),
       };
 
-      dispatch(addComment({ postUrl: post.post_url, comment: newComment }));
+      dispatch(
+        addComment({ postUrl: post?.post_url ?? "", comment: newComment }),
+      );
 
       // Clear the input field
       setComment("");
     }
-  };
+  }
 
   return (
     <KeyboardAvoidingView
