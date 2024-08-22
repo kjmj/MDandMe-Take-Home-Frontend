@@ -1,5 +1,5 @@
 import { CommentType } from "@/components/CommentList/types/CommentType";
 
 export type ParsedCommentsType = {
-    [key: string]: CommentType;
+  [key: string]: CommentType;
 };

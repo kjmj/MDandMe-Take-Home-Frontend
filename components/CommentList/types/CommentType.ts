@@ -1,8 +1,8 @@
 export type CommentType = {
-    id: number;
-    parent_id: number | null;
-    display_name: string;
-    text: string;
-    created_at: string;
-    children: CommentType[];
+  id: number;
+  parent_id: number | null;
+  display_name: string;
+  text: string;
+  created_at: string;
+  children: CommentType[];
 };

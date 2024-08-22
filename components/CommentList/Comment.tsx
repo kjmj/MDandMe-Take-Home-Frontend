@@ -1,69 +1,71 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import React from "react";
+import { View, Text, StyleSheet } from "react-native";
 import { CommentType } from "@/components/CommentList/types/CommentType";
-import { getTimeAgo } from '@/util/getTimeAgo';
-import { AvatarImage } from '@/components/AvatarImage';
+import { getTimeAgo } from "@/util/getTimeAgo";
+import { AvatarImage } from "@/components/AvatarImage";
 
 interface CommentProps {
-    comment: CommentType;
+  comment: CommentType;
 }
 
 export function Comment({ comment }: CommentProps) {
-    return (
-        <View style={styles.commentContainer}>
-            <View style={styles.headerContainer}>
-                <AvatarImage size={40} />
-                <View style={styles.textContainer}>
-                    <Text style={styles.commentAuthor}>{comment.display_name}</Text>
-                    <Text style={styles.commentDate}>{getTimeAgo(new Date(comment.created_at))}</Text>
-                </View>
-            </View>
-            <Text style={styles.commentText}>{comment.text}</Text>
-
-            {comment.children.length > 0 && (
-                <View style={styles.repliesContainer}>
-                    {comment.children.map(child => (
-                        <Comment key={child.id} comment={child} />
-                    ))}
-                </View>
-            )}
+  return (
+    <View style={styles.commentContainer}>
+      <View style={styles.headerContainer}>
+        <AvatarImage size={40} />
+        <View style={styles.textContainer}>
+          <Text style={styles.commentAuthor}>{comment.display_name}</Text>
+          <Text style={styles.commentDate}>
+            {getTimeAgo(new Date(comment.created_at))}
+          </Text>
         </View>
-    );
+      </View>
+      <Text style={styles.commentText}>{comment.text}</Text>
+
+      {comment.children.length > 0 && (
+        <View style={styles.repliesContainer}>
+          {comment.children.map((child) => (
+            <Comment key={child.id} comment={child} />
+          ))}
+        </View>
+      )}
+    </View>
+  );
 }
 
 const styles = StyleSheet.create({
-    commentContainer: {
-        padding: 10,
-        marginLeft: 10,
-    },
-    headerContainer: {
-        flexDirection: 'row',
-        alignItems: 'center',
-        marginBottom: 5,
-    },
-    avatar: {
-        width: 40,
-        height: 40,
-        borderRadius: 20,
-        marginRight: 10,
-    },
-    textContainer: {
-        flex: 1,
-    },
-    commentAuthor: {
-        fontWeight: 'bold',
-    },
-    commentDate: {
-        fontSize: 12,
-        color: 'gray',
-    },
-    commentText: {
-        marginVertical: 5,
-    },
-    repliesContainer: {
-        marginLeft: 15,
-        borderLeftWidth: 1,
-        borderLeftColor: '#ccc',
-        paddingLeft: 5,
-    },
+  commentContainer: {
+    padding: 10,
+    marginLeft: 10,
+  },
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: 5,
+  },
+  avatar: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    marginRight: 10,
+  },
+  textContainer: {
+    flex: 1,
+  },
+  commentAuthor: {
+    fontWeight: "bold",
+  },
+  commentDate: {
+    fontSize: 12,
+    color: "gray",
+  },
+  commentText: {
+    marginVertical: 5,
+  },
+  repliesContainer: {
+    marginLeft: 15,
+    borderLeftWidth: 1,
+    borderLeftColor: "#ccc",
+    paddingLeft: 5,
+  },
 });
