@@ -32,7 +32,7 @@ export function PostCard({ post, disableTapOnPost, showAll }: PostCardProps) {
     return (
         <View style={styles.container}>
             <TouchableWithoutFeedback onPress={disableTapOnPost ? () => { } : () => postPress(post)}>
-                <View style={styles.bottomBorder}>
+                <View>
                     <View style={styles.headerContainer}>
                         <AvatarImage />
                         <View style={styles.textContainer}>
@@ -93,11 +93,6 @@ const styles = StyleSheet.create({
         padding: 15,
         borderRadius: 10,
         backgroundColor: "white",
-    },
-    bottomBorder: {
-        borderBottomColor: 'black',
-        borderBottomWidth: StyleSheet.hairlineWidth,
-        marginBottom: 6,
     },
     headerContainer: {
         flexDirection: 'row',
