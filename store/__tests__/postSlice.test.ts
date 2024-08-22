@@ -5,8 +5,10 @@ import postsReducer, {
   fetchPosts,
   fetchMorePosts,
   updatePostField,
+  addComment,
 } from "@/store/postsSlice";
 import { Post } from "@/types/Post";
+import { Comment } from "@/types/Comment";
 
 const mock = new MockAdapter(axios);
 const initialState = {
@@ -167,5 +169,98 @@ describe("postsSlice", () => {
 
     expect(state.posts[0].title).toBe("Original Title");
     expect(state.error).toBe("Failed to update post");
+  });
+
+  test("addComment successful", async () => {
+    const initialPost: Post = {
+      post_url: "1",
+      title: "Test Post",
+      created_at: "2024-08-21T12:00:00Z",
+      num_hugs: 10,
+      patient_description: "Patient description.",
+      assessment: "Assessment.",
+      question: "Question?",
+      comments: {},
+    };
+    const newComment: Comment = {
+      id: 1,
+      parent_id: null,
+      display_name: "User",
+      text: "This is a comment.",
+      created_at: "2024-08-21T12:05:00Z",
+    };
+    const updatedPost: Post = {
+      ...initialPost,
+      comments: {
+        1: newComment,
+      },
+    };
+    store = configureStore({
+      reducer: {
+        posts: postsReducer,
+      },
+      preloadedState: {
+        posts: { ...initialState, posts: [initialPost] },
+      },
+    });
+
+    mock.onPut("http://localhost:3000/posts/1").reply(200, updatedPost);
+
+    await store.dispatch(
+      addComment({
+        postUrl: "1",
+        comment: {
+          parent_id: null,
+          display_name: "User",
+          text: "This is a comment.",
+          created_at: "2024-08-21T12:05:00Z",
+        },
+      }),
+    );
+    const state = store.getState().posts;
+
+    expect(state.posts[0].comments).toEqual({
+      1: newComment,
+    });
+    expect(state.error).toBeNull();
+  });
+
+  test("addComment failure", async () => {
+    const initialPost: Post = {
+      post_url: "1",
+      title: "Test Post",
+      created_at: "2024-08-21T12:00:00Z",
+      num_hugs: 10,
+      patient_description: "Patient description.",
+      assessment: "Assessment.",
+      question: "Question?",
+      comments: {},
+    };
+    store = configureStore({
+      reducer: {
+        posts: postsReducer,
+      },
+      preloadedState: {
+        posts: { ...initialState, posts: [initialPost] },
+      },
+    });
+
+    mock.onPut("http://localhost:3000/posts/1").reply(500);
+
+    await store.dispatch(
+      addComment({
+        postUrl: "1",
+        comment: {
+          parent_id: null,
+          display_name: "User",
+          text: "This is a comment.",
+          created_at: "2024-08-21T12:05:00Z",
+        },
+      }),
+    );
+    const state = store.getState().posts;
+
+    expect(state.posts[0].comments).toEqual({});
+    expect(state.error).toBe("Failed to add comment");
   });
 });
