@@ -1,5 +1,5 @@
 import React from 'react';
-import { FlatList, Text, View, StyleSheet } from 'react-native';
+import { FlatList, Text, StyleSheet } from 'react-native';
 import { PostCard } from "@/components/PostCard";
 import { useLocalSearchParams } from "expo-router";
 import { useSelector } from "react-redux";
@@ -23,7 +23,7 @@ export default function PostDetailView() {
 
     return (
         <FlatList
-            style={styles.zzz}
+            style={styles.container}
             data={[post]} // Only the post is passed here
             renderItem={({ item }) => <PostCard post={item} disableTapOnPost={true} showAll={true} />}
             keyExtractor={(item) => item.post_url}
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         margin: 10
     },
-    zzz: {
+    container: {
         backgroundColor: "#fafafe",
     }
 });

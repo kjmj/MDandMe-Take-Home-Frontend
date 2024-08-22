@@ -48,6 +48,7 @@ export const updatePostField = createAsyncThunk(
             const response = await axios.put<Post>(`${API_URL()}/${post.post_url}`, updatedPost);
             return response.data;
         } catch (error) {
+            console.log(error)
             return rejectWithValue('Failed to update post');
         }
     }
