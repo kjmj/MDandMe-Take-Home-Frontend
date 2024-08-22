@@ -8,7 +8,7 @@ import { AppDispatch } from '@/store/store';
 import { CommentsMapType } from '@/types/CommentsMapType';
 import { Post } from '@/types/Post';
 import { router } from 'expo-router';
-import { getTimeAgo } from '@/util/utils';
+import { getTimeAgo } from '@/util/getTimeAgo';
 import { AvatarImage } from '@/components/AvatarImage';
 
 interface PostCardProps {
